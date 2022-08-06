@@ -1,30 +1,50 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+{{$store.state.likes}}
+  <product-list :products="products"/>
+  <basket />
 </template>
 
+<script>
+import ProductList from './components/ProductList.vue';
+import Basket from './components/Basket.vue';
+export default {
+  components: {
+    ProductList, Basket
+},
+  data() {
+    return {
+      names: null,
+      products: [],
+      busketProducts: []
+    }
+  },
+  mounted() {
+    this.loadNames();
+    this.loadData();
+  },
+  methods: {
+    loadData() {
+      const jsonData= require('./data/data.json'); 
+      console.log(jsonData);
+      this.products = jsonData.Value.Goods.map(item => {
+        const obj = {
+          id: item.T,
+          maxCount: item.P,
+          price: item.C,
+          name: this.names[item.G].B[item.T].N,
+          groupName: this.names[item.G].G
+        }
+        return obj
+      })
+    },
+    loadNames() {
+      const jsonNames= require('./data/names.json'); 
+      console.log(jsonNames);
+      this.names = jsonNames;
+    }
+  }
+}
+</script>
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
-nav {
-  padding: 30px;
-}
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-nav a.router-link-exact-active {
-  color: #42b983;
-}
 </style>

@@ -1,14 +1,13 @@
 import { createStore } from 'vuex'
+import { basketModule } from './basketModule'
 
 export default createStore({
-  state: {
-  },
-  getters: {
-  },
-  mutations: {
-  },
-  actions: {
+  state: () => {
+    return {
+        likes: 1
+    }
   },
   modules: {
+    basket : basketModule
   }
 })
