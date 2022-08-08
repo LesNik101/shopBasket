@@ -1,26 +1,25 @@
 <template>
-<div>
-  <div>{{product.name}}</div>
-  <button @click="addToBasket">Добавить в корзину</button>
-</div>
+    <div>
+        <div>{{ product.name }}</div>
+        <button @click="addProduct(this.product)">Добавить в корзину</button>
+    </div>
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
     props: {
         product: {
             type: Object,
-            require: true
-        }
+            require: true,
+        },
     },
     methods: {
-        addToBasket() {
-            this.$store.commit('basket/addProduct', this.product)
-        }
-    }
-}
+        ...mapMutations({
+            addProduct: "basket/addProduct",
+        }),
+    },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

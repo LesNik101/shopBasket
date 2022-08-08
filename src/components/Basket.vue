@@ -1,25 +1,27 @@
 <template>
-  <div>
-    <H3>Корзина</H3>
-    <basket-item v-for="product in products" :key="product.id"/>
-  </div>
+    <div>
+        <H3>Корзина</H3>
+        <basket-item
+            v-for="product in products"
+            :key="product.id"
+            :product="product"
+        />
+    </div>
 </template>
 
 <script>
-import BasketItem from './BasketItem.vue'
+import BasketItem from "./BasketItem.vue";
 export default {
     components: {
-        BasketItem
+        BasketItem,
     },
     props: {
         products: {
             type: Array,
-            require: true
-        }
-    }
-}
+            require: true,
+        },
+    },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

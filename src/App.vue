@@ -1,50 +1,36 @@
 <template>
-{{$store.state.likes}}
-  <product-list :products="products"/>
-  <basket />
+    <product-list :products="products" />
+    <basket :products="basketProducts" />
 </template>
 
 <script>
-import ProductList from './components/ProductList.vue';
-import Basket from './components/Basket.vue';
+import ProductList from "./components/ProductList.vue";
+import Basket from "./components/Basket.vue";
+import { mapActions, mapState, mapGetters } from "vuex";
 export default {
-  components: {
-    ProductList, Basket
-},
-  data() {
-    return {
-      names: null,
-      products: [],
-      busketProducts: []
-    }
-  },
-  mounted() {
-    this.loadNames();
-    this.loadData();
-  },
-  methods: {
-    loadData() {
-      const jsonData= require('./data/data.json'); 
-      console.log(jsonData);
-      this.products = jsonData.Value.Goods.map(item => {
-        const obj = {
-          id: item.T,
-          maxCount: item.P,
-          price: item.C,
-          name: this.names[item.G].B[item.T].N,
-          groupName: this.names[item.G].G
-        }
-        return obj
-      })
+    components: {
+        ProductList,
+        Basket,
     },
-    loadNames() {
-      const jsonNames= require('./data/names.json'); 
-      console.log(jsonNames);
-      this.names = jsonNames;
-    }
-  }
-}
+    mounted() {
+        this.loadProductsInfo();
+        this.loadData();
+    },
+    computed: {
+        ...mapState({
+            products: (state) => state.basket.products,
+        }),
+        ...mapGetters({
+            basketProducts: "basket/basketProducts",
+        }),
+    },
+    methods: {
+        ...mapActions({
+            loadData: "basket/loadData",
+            loadProductsInfo: "basket/loadProductsInfo",
+        }),
+    },
+};
 </script>
 
-<style>
-</style>
+<style></style>
