@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@material-ui/icons": "^4.11.3",
     "core-js": "^3.8.3",
     "lodash.groupby": "^4.6.0",
     "vue": "^3.2.13",
@@ -17,7 +18,10 @@
     "@vue/cli-plugin-babel": "~5.0.0",
     "@vue/cli-plugin-router": "~5.0.0",
     "@vue/cli-plugin-vuex": "~5.0.0",
-    "@vue/cli-service": "~5.0.0"
+    "@vue/cli-service": "~5.0.0",
+    "autoprefixer": "^10.4.8",
+    "postcss": "^8.4.16",
+    "tailwindcss": "^3.1.8"
   },
   "browserslist": [
     "> 1%",

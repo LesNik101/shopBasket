@@ -8,6 +8,9 @@ export const basketModule = {
         };
     },
     getters: {
+        getProducts(state) {
+            return state.products
+        },
         totalCost(state) {
             return state.products.reduce(
                 (sum, product) => sum + product.count * product.price,

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <H3>Корзина</H3>
+        <h3>Корзина</h3>
         <basket-item
             v-for="product in products"
             :key="product.id"

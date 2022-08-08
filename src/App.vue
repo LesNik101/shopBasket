@@ -1,15 +1,16 @@
 <template>
-    <product-list :products="products" />
-    <basket :products="basketProducts" />
+    <GroupList :products="getProducts" />
+    <Basket :products="basketProducts" />
 </template>
 
 <script>
-import ProductList from "./components/ProductList.vue";
+import GroupList from "./components/GroupList.vue";
 import Basket from "./components/Basket.vue";
-import { mapActions, mapState, mapGetters } from "vuex";
+import { mapActions,  mapGetters } from "vuex";
+
 export default {
     components: {
-        ProductList,
+        GroupList,
         Basket,
     },
     mounted() {
@@ -17,10 +18,8 @@ export default {
         this.loadData();
     },
     computed: {
-        ...mapState({
-            products: (state) => state.basket.products,
-        }),
         ...mapGetters({
+            getProducts: "basket/getProducts",
             basketProducts: "basket/basketProducts",
         }),
     },
