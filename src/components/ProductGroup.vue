@@ -1,5 +1,5 @@
 <template>
-    <div class="">
+    <div>
         <div
             class="flex items-center cursor-pointer mb-2 select-none"
             @click="isExpand = !isExpand"
@@ -36,11 +36,11 @@ export default {
     props: {
         groupName: {
             type: String,
-            require: true,
+            required: true,
         },
         products: {
             type: Array,
-            require: true,
+            required: true,
         },
     },
     data: () => ({
@@ -51,16 +51,16 @@ export default {
 
 <style>
 .fade-enter-active {
-  transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
 }
 
 .fade-leave-active {
-  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+    transition: all 0.3s cubic-bezier(1, 0.5, 0.8, 1);
 }
 
 .fade-enter-from,
 .fade-leave-to {
-  transform: translateX(20px);
-  opacity: 0;
+    transform: translateX(20px);
+    opacity: 0;
 }
 </style>

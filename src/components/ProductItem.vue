@@ -14,25 +14,28 @@
             <span class="text-sm">$</span>
         </div>
         <div class="shrink-0">
-            <button class="rounded-full px-5 py-2 bg-blue-500 text-white hover:bg-blue-700 text-sm " @click="addProduct(this.product)">В корзину</button>
+            <MyCounter v-if="count > 0" v-model="count" />
+            <MyButton
+                v-else
+                @click="setProductCount({ productId: product.id, count: 1 })"
+            >
+                В корзину
+            </MyButton>
         </div>
     </div>
 </template>
 
 <script>
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
+import productsCountMixin from "../mixins/productCountMixin";
 
 export default {
+    mixins: [productsCountMixin],
     props: {
         product: {
             type: Object,
-            require: true,
+            required: true,
         },
-    },
-    methods: {
-        ...mapMutations({
-            addProduct: "basket/addProduct",
-        }),
     },
 };
 </script>

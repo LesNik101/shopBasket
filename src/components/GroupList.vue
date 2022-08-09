@@ -23,7 +23,7 @@ export default {
     props: {
         products: {
             type: Array,
-            require: true,
+            required: true,
         },
     },
     computed: {

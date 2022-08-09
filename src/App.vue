@@ -1,12 +1,12 @@
 <template>
     <GroupList :products="getProducts" />
-    <Basket :products="basketProducts" />
+    <Basket v-if="basketProducts.length" :products="basketProducts" />
 </template>
 
 <script>
 import GroupList from "./components/GroupList.vue";
 import Basket from "./components/Basket.vue";
-import { mapActions,  mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
     components: {
@@ -19,14 +19,14 @@ export default {
     },
     computed: {
         ...mapGetters({
-            getProducts: "basket/getProducts",
-            basketProducts: "basket/basketProducts",
+            getProducts: "getProducts",
+            basketProducts: "basketProducts",
         }),
     },
     methods: {
         ...mapActions({
-            loadData: "basket/loadData",
-            loadProductsInfo: "basket/loadProductsInfo",
+            loadData: "loadData",
+            loadProductsInfo: "loadProductsInfo",
         }),
     },
 };

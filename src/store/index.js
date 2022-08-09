@@ -1,8 +1,76 @@
 import { createStore } from "vuex";
-import { basketModule } from "./basketModule";
 
 export default createStore({
-    modules: {
-        basket: basketModule,
+    state: () => {
+        return {
+            productsInfo: null,
+            products: [],
+            selectedProducs: {},
+        };
+    },
+    getters: {
+        getProducts(state) {
+            return state.products;
+        },
+        getSelectedProducs(state) {
+            return state.selectedProducs;
+        },
+        totalCost(state, getters) {
+            return getters.basketProducts
+                .reduce(
+                    (sum, product) =>
+                        sum + state.selectedProducs[product.id] * product.price,
+                    0
+                )
+                .toFixed(2);
+        },
+        basketProducts(state) {
+            return state.products.filter(
+                ({ id }) =>
+                    state.selectedProducs[id] && state.selectedProducs[id] > 0
+            );
+        },
+    },
+    mutations: {
+        setProducts(state, products) {
+            state.products = products;
+        },
+        setProductsInfo(state, productsInfo) {
+            state.productsInfo = productsInfo;
+        },
+        setProductCount(state, { productId, count }) {
+            const product = state.products.find(
+                (item) => item.id === productId
+            );
+            if (product && count >= 0 && count <= product.maxCount) {
+                state.selectedProducs = {
+                    ...state.selectedProducs,
+                    [productId]: count,
+                };
+            }
+        },
+    },
+    actions: {
+        loadData({ state, commit }) {
+            const jsonData = require("@/data/data.json");
+            const products = jsonData.Value.Goods.map((item) => {
+                const obj = {
+                    id: item.T,
+                    maxCount: item.P,
+                    price: item.C,
+                    name: state.productsInfo[item.G].B[item.T].N,
+                    group: {
+                        id: item.G,
+                        name: state.productsInfo[item.G].G,
+                    },
+                };
+                return obj;
+            });
+            commit("setProducts", products);
+        },
+        loadProductsInfo({ commit }) {
+            const productsInfo = require("@/data/names.json");
+            commit("setProductsInfo", productsInfo);
+        },
     },
 });
