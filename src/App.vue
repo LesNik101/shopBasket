@@ -16,6 +16,7 @@ export default {
     mounted() {
         this.loadProductsInfo();
         this.loadData();
+        setInterval(this.getNewData, 15000);
     },
     computed: {
         ...mapGetters({
@@ -27,7 +28,12 @@ export default {
         ...mapActions({
             loadData: "loadData",
             loadProductsInfo: "loadProductsInfo",
+            randomRate: "randomRate",
         }),
+        getNewData() {
+            this.loadProductsInfo();
+            this.randomRate();
+        },
     },
 };
 </script>
