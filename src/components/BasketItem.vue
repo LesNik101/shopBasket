@@ -6,7 +6,7 @@
         <div class="grow">{{ product.name }}</div>
         <div class="shrink-0 flex items-center gap-2">
             <span class="text-sm">Количество:</span>
-            <MyCounter v-model="count" />
+            <MyCounter v-model="count" :maxValue="product.maxCount" :minValue="0"/>
             <span class="text-sm">шт</span>
         </div>
         <div class="shrink-0">
@@ -16,7 +16,7 @@
         </div>
         <div class="shrink-0">
             <MyButton
-                @click="setProductCount({ productId: product.id, count: 0 })"
+                @click="count = 0"
             >
                 Удалить
             </MyButton>

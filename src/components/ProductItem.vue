@@ -15,10 +15,10 @@
             <span class="text-sm">р/шт</span>
         </div>
         <div class="shrink-0">
-            <MyCounter v-if="count > 0" v-model="count" />
+            <MyCounter v-if="count > 0" v-model="count" :maxValue="product.maxCount" :minValue="0" />
             <MyButton
                 v-else
-                @click="setProductCount({ productId: product.id, count: 1 })"
+                @click="count = 1"
             >
                 В корзину
             </MyButton>

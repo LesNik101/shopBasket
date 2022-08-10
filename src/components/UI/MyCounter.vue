@@ -2,15 +2,15 @@
     <div
         class="inline-flex select-none border-2 border-solid border-blue-400 rounded px-2 py-1 gap-2"
     >
-        <span
-            @click="updateValue(this.modelValue - 1)"
+        <span v-if="!minValue || minValue < modelValue"
+            @click="updateValue(-1)"
             class="material-icons transition-all duration-300 hover:scale-125 hover:cursor-pointer"
         >
             remove
         </span>
         <div>{{ modelValue }}</div>
-        <span
-            @click="updateValue(this.modelValue + 1)"
+        <span v-if="!maxValue || maxValue > modelValue"
+            @click="updateValue(1)"
             class="material-icons transition-all duration-300 hover:scale-125 hover:cursor-pointer"
         >
             add
@@ -26,10 +26,16 @@ export default {
             type: Number,
             required: true,
         },
+        minValue: {
+            type: Number,
+        },
+        maxValue: {
+            type: Number,
+        },
     },
     methods: {
-        updateValue(value) {
-            this.$emit("update:modelValue", value);
+        updateValue(step) {
+            this.$emit("update:modelValue", this.modelValue + step);
         },
     },
 };
