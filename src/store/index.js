@@ -6,6 +6,7 @@ export default createStore({
             productsInfo: null,
             products: [],
             selectedProducs: {},
+            rate: 70,
         };
     },
     getters: {
@@ -15,11 +16,17 @@ export default createStore({
         getSelectedProducs(state) {
             return state.selectedProducs;
         },
+        getRate(state) {
+            return state.rate;
+        },
         totalCost(state, getters) {
             return getters.basketProducts
                 .reduce(
                     (sum, product) =>
-                        sum + state.selectedProducs[product.id] * product.price,
+                        sum +
+                        state.selectedProducs[product.id] *
+                            product.price *
+                            state.rate,
                     0
                 )
                 .toFixed(2);
@@ -49,6 +56,9 @@ export default createStore({
                 };
             }
         },
+        setRate(state, rate) {
+            state.rate = rate;
+        },
     },
     actions: {
         loadData({ state, commit }) {
@@ -71,6 +81,12 @@ export default createStore({
         loadProductsInfo({ commit }) {
             const productsInfo = require("@/data/names.json");
             commit("setProductsInfo", productsInfo);
+        },
+        randomRate({ commit }) {
+            const minValue = 20,
+                maxValue = 80;
+            const newRate = Math.random() * (maxValue - minValue) + minValue;
+            commit("setRate", newRate);
         },
     },
 });

@@ -8,7 +8,7 @@
                     <strong class="ml-1 text-orange-500">{{
                         totalCost
                     }}</strong>
-                    <span class="text-sm">$</span>
+                    <span class="text-sm">р</span>
                 </div>
             </div>
         </div>
